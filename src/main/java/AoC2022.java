@@ -1,12 +1,13 @@
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class AoC2022 {
     public static void main(String[] args) throws Exception {
-        dayOne();
+        dayOneP1();
     }
 
-    public static void dayOne() {
+    public static void dayOneP1() {
         final InputStream source = AoC2022.class.getResourceAsStream("day01.txt");
         Scanner input = new Scanner(source);
         int[] calories = new int[2000];
@@ -30,9 +31,12 @@ public class AoC2022 {
             }
         }
         input.close();
-        System.out.println(calories[1]);
 
         // Find Elf carrying the most calories
+
+        Arrays.sort(calories);
+        int maxCalories = calories[calories.length - 1];
+        System.out.println(maxCalories);
 
     }
 }
