@@ -6,7 +6,10 @@ import java.util.Scanner;
 
 public class AoC2022 {
     public static void main(String[] args) throws Exception {
-//        dayOne();
+        printMainTitle();
+        printTitleDay(1);
+        dayOne();
+        printTitleDay(2);
         dayTwo();
     }
 
@@ -19,31 +22,31 @@ public class AoC2022 {
 
         // Mapping RPS pair to Score
         Map<String, Integer> scoreMap1 = new HashMap();
-        scoreMap1.put("AX",4);
-        scoreMap1.put("AY",8);
-        scoreMap1.put("AZ",3);
-        scoreMap1.put("BX",1);
-        scoreMap1.put("BY",5);
-        scoreMap1.put("BZ",9);
-        scoreMap1.put("CX",7);
-        scoreMap1.put("CY",2);
-        scoreMap1.put("CZ",6);
+        scoreMap1.put("AX", 4);
+        scoreMap1.put("AY", 8);
+        scoreMap1.put("AZ", 3);
+        scoreMap1.put("BX", 1);
+        scoreMap1.put("BY", 5);
+        scoreMap1.put("BZ", 9);
+        scoreMap1.put("CX", 7);
+        scoreMap1.put("CY", 2);
+        scoreMap1.put("CZ", 6);
 
         // Mapping RPS-LDW pair to Score
         Map<String, Integer> scoreMap2 = new HashMap();
-        scoreMap2.put("AX",3);
-        scoreMap2.put("AY",4);
-        scoreMap2.put("AZ",8);
-        scoreMap2.put("BX",1);
-        scoreMap2.put("BY",5);
-        scoreMap2.put("BZ",9);
-        scoreMap2.put("CX",2);
-        scoreMap2.put("CY",6);
-        scoreMap2.put("CZ",7);
+        scoreMap2.put("AX", 3);
+        scoreMap2.put("AY", 4);
+        scoreMap2.put("AZ", 8);
+        scoreMap2.put("BX", 1);
+        scoreMap2.put("BY", 5);
+        scoreMap2.put("BZ", 9);
+        scoreMap2.put("CX", 2);
+        scoreMap2.put("CY", 6);
+        scoreMap2.put("CZ", 7);
 
 
         // Put input into Array
-        for (int  i=0; input.hasNextLine(); i++) {
+        for (int i = 0; input.hasNextLine(); i++) {
             strategyGuide[i] = input.next() + input.next();
         }
         input.close();
@@ -51,13 +54,13 @@ public class AoC2022 {
         // Sum up score using mapping
         for (int i = 0; i < strategyGuide.length; i++) {
             score[i] = scoreMap1.get(strategyGuide[i]);
-            totalScore+= score[i];
+            totalScore += score[i];
         }
 
-       // Prints for checkpoints
-        System.out.println(strategyGuide[4]);
-        System.out.println(scoreMap1.get(strategyGuide[4]));
-        System.out.println(score[4]);
+        // Prints for checkpoints
+        // System.out.println(strategyGuide[4]);
+        // System.out.println(scoreMap1.get(strategyGuide[4]));
+        // System.out.println(score[4]);
 
         // Print Solution
         System.out.println("Solution Part 1: " + totalScore);
@@ -66,7 +69,7 @@ public class AoC2022 {
         totalScore = 0;
         for (int i = 0; i < strategyGuide.length; i++) {
             score[i] = scoreMap2.get(strategyGuide[i]);
-            totalScore+= score[i];
+            totalScore += score[i];
         }
         System.out.println("Solution Part 2: " + totalScore);
 
@@ -108,5 +111,13 @@ public class AoC2022 {
         int topThreeSum = calories[calories.length - 1] + calories[calories.length - 2] + calories[calories.length - 3];
         System.out.println("Solution Part 2: " + topThreeSum);
 
+    }
+
+    public static void printMainTitle() {
+        System.out.println("\nAdvent of Code - 2022: zottima's solutions");
+    }
+
+    public static void printTitleDay(int day) {
+        System.out.println("\nDay " + day);
     }
 }
