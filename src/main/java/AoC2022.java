@@ -11,6 +11,64 @@ public class AoC2022 {
         dayOne();
         printTitleDay(2);
         dayTwo();
+        printTitleDay(3);
+        dayThree();
+    }
+
+    public static void dayThree() {
+        final InputStream source = AoC2022.class.getResourceAsStream("day03.txt");
+        String[] rucksackContent = new String[300];
+        int numberOfItems = 0;
+        char[] itemTypes = new char[60];
+        int[] misplacedItems = new int[300];
+        int[] itemPriority = new int[300];
+        int offsetLowerCase = 96;
+        int offsetUpperCase = 38;
+        int sumPriorities = 0;
+
+        // Get content from all rucksacks
+        try(Scanner input = new Scanner(source)) {
+            for (int i=0; input.hasNextLine(); i++) {
+                rucksackContent[i] = input.next();
+            }
+        }
+
+        // Put all item types into array and find misplaced item
+        for (int i=0; i < 300; i++) {
+            numberOfItems = rucksackContent[i].length();
+            itemTypes = rucksackContent[i].toCharArray();
+            Boolean matchFound = false;
+            for (int j=0; (j < (numberOfItems/2)) && !matchFound; j++) {
+                for (int k = (numberOfItems/2); (k < numberOfItems) && !matchFound; k++) {
+                    if (itemTypes[j] == itemTypes[k]) {
+                            matchFound = true;
+                            misplacedItems[i] = itemTypes[j];
+                    }
+                }
+
+            }
+        }
+
+        // Calculate item type priority and total of priorities
+        for (int i=0; i<300; i++){
+            if (misplacedItems[i] >96) {
+                itemPriority[i] = misplacedItems[i] - offsetLowerCase;
+            } else {
+                itemPriority[i] = misplacedItems[i] - offsetUpperCase;
+            }
+            sumPriorities+= itemPriority[i];
+        }
+
+        // Print solution
+        System.out.println("Solution Part 1: " + sumPriorities);
+
+        // Print for testing along the way
+        System.out.println("\nOutput for testing:");
+        System.out.println(rucksackContent[2]);
+        System.out.println(rucksackContent[4].length());
+        System.out.println(itemTypes[3]);
+        System.out.println(misplacedItems[4]);
+
     }
 
     public static void dayTwo() {
@@ -73,7 +131,6 @@ public class AoC2022 {
         System.out.println("Solution Part 2: " + totalScore);
 
     }
-
 
     public static void dayOne() {
         final InputStream source = AoC2022.class.getResourceAsStream("day01.txt");
