@@ -111,18 +111,18 @@ public class AoC2022 {
         System.out.println("Solution Part 2: " + sumBadgePrio);
 
         // Print for testing along the way
-          System.out.println("\nOutput for testing:");
+//          System.out.println("\nOutput for testing:");
 //        System.out.println(rucksackContent[2]);
 //        System.out.println(rucksackContent[4].length());
 //        System.out.println(itemTypes[3]);
 //        System.out.println(misplacedItems[4]);
-        System.out.println(sharedTypes12[99]);
-        System.out.println(badgeItemTypes[3]);
-        System.out.println(indexCounter[1]);
-        System.out.println(sharedTypes12[99][1]);
-        System.out.println(badgeItemTypes[1]);
-        System.out.println(badgeItemTypes.length);
-        System.out.println(badgePriority[99]);
+//        System.out.println(sharedTypes12[99]);
+//        System.out.println(badgeItemTypes[3]);
+//        System.out.println(indexCounter[1]);
+//        System.out.println(sharedTypes12[99][1]);
+//        System.out.println(badgeItemTypes[1]);
+//        System.out.println(badgeItemTypes.length);
+//        System.out.println(badgePriority[99]);
 
 
     }
