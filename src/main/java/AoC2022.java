@@ -15,7 +15,6 @@ public class AoC2022 {
 
     public static void dayTwo() {
         final InputStream source = AoC2022.class.getResourceAsStream("day02.txt");
-        Scanner input = new Scanner(source);
         String[] strategyGuide = new String[2500];
         int[] score = new int[2500];
         int totalScore = 0;
@@ -44,12 +43,12 @@ public class AoC2022 {
         scoreMap2.put("CY", 6);
         scoreMap2.put("CZ", 7);
 
-
         // Put input into Array
-        for (int i = 0; input.hasNextLine(); i++) {
-            strategyGuide[i] = input.next() + input.next();
+        try(Scanner input = new Scanner(source)) {
+            for (int i = 0; input.hasNextLine(); i++) {
+                strategyGuide[i] = input.next() + input.next();
+            }
         }
-        input.close();
 
         // Sum up score using mapping
         for (int i = 0; i < strategyGuide.length; i++) {
@@ -78,28 +77,28 @@ public class AoC2022 {
 
     public static void dayOne() {
         final InputStream source = AoC2022.class.getResourceAsStream("day01.txt");
-        Scanner input = new Scanner(source);
         int[] calories = new int[2000];
         int elves = 0;
 
         // Sum up calories per Elf
-        while (input.hasNextLine()) {
-            boolean isBlankLine = false;
-            int calorieSum = 0;
-            int caloriePack = 0;
-            while (!isBlankLine && input.hasNextLine()) {
-                String inputLine = input.nextLine();
-                if ("".equals(inputLine)) {
-                    isBlankLine = true;
-                    calories[elves] = calorieSum;
-                    elves++;
-                } else {
-                    caloriePack = Integer.parseInt(inputLine);
-                    calorieSum += caloriePack;
+        try(Scanner input = new Scanner(source)) {
+            while (input.hasNextLine()) {
+                boolean isBlankLine = false;
+                int calorieSum = 0;
+                int caloriePack = 0;
+                while (!isBlankLine && input.hasNextLine()) {
+                    String inputLine = input.nextLine();
+                    if ("".equals(inputLine)) {
+                        isBlankLine = true;
+                        calories[elves] = calorieSum;
+                        elves++;
+                    } else {
+                        caloriePack = Integer.parseInt(inputLine);
+                        calorieSum += caloriePack;
+                    }
                 }
             }
         }
-        input.close();
 
         // Find Elf carrying the most calories
 
