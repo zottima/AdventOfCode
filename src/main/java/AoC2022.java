@@ -85,7 +85,7 @@ public class AoC2022 {
             char[] itemTypesThirdSack = rucksackContent[i*3+2].toCharArray();
             Boolean matchFound = false;
             for (int j=0; (j < itemTypesThirdSack.length) && !matchFound; j++) {
-                for (int k=0; k < indexCounter[i]; k++) {
+                for (int k=0; (k <= indexCounter[i]) && !matchFound; k++) {
                     if (itemTypesThirdSack[j] == sharedTypes12[i][k]) {
                         badgeItemTypes[i] = itemTypesThirdSack[j];
                         matchFound = true;
@@ -97,7 +97,7 @@ public class AoC2022 {
         // Calculate item type priority and total of priorities
         int sumBadgePrio = 0;
         int[] badgePriority = new int[100];
-        for (int i = 0; i<100; i++){
+        for (int i=0; i<100; i++){
             if (badgeItemTypes[i] > 96) {
                 badgePriority[i] = badgeItemTypes[i] - offsetLowerCase;
             } else {
