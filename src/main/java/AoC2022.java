@@ -45,9 +45,11 @@ public class AoC2022 {
 
         // Put crate stacks into lists
         ArrayList<String>[] crateStack = new ArrayList[9];
+        ArrayList<String>[] copyOfcrateStack = new ArrayList[9]; // copy for reuse part 2
 
         for (int i = 0; i < 9; i++) {
             crateStack[i] = new ArrayList<String>();
+            copyOfcrateStack[i] = new ArrayList<String>();
         }
 
         int stackIndex = 0;
@@ -58,6 +60,7 @@ public class AoC2022 {
                 if (Character.isUpperCase(crateInput[j][i])) {
                     String string = new String();
                     crateStack[stackIndex].add(string.valueOf(crateInput[j][i]));
+                    copyOfcrateStack[stackIndex].add(string.valueOf(crateInput[j][i]));
                 } else {
                     reachedEndofStack = true;
                 }
@@ -65,24 +68,22 @@ public class AoC2022 {
             stackIndex++;
         }
 
-        ArrayList<String>[] copyOfcrateStack = crateStack;
+        // Part 1: Rearrange stacks, moving one crate at a time
+        for (int i=0; i<501; i++) {     // Loop through instructions
+            for (int j=0; j<numOfCratesToMove[i]; j++) {    // How many crates to move
+                int positionInStack = crateStack[startPosition[i]-1].size();    // crate on top of stack
+                String crateToMove = crateStack[startPosition[i]-1].get(positionInStack-1);     // get crate
+                crateStack[endPosition[i]-1].add(crateToMove);    // move to new stack
+                crateStack[startPosition[i]-1].remove(positionInStack-1); // remove stack from where we got it
+            }
+        }
 
-//        // Part 1: Rearrange stacks, moving one crate at a time
-//        for (int i=0; i<501; i++) {     // Loop through instructions
-//            for (int j=0; j<numOfCratesToMove[i]; j++) {    // How many crates to move
-//                int positionInStack = crateStack[startPosition[i]-1].size();    // crate on top of stack
-//                String crateToMove = crateStack[startPosition[i]-1].get(positionInStack-1);     // get crate
-//                crateStack[endPosition[i]-1].add(crateToMove);    // move to new stack
-//                crateStack[startPosition[i]-1].remove(positionInStack-1); // remove stack from where we got it
-//            }
-//        }
-//
-//        // Get all crates on top of each stack
-//        String topCrates = "";
-//        for (int i=0; i<9; i++) {
-//            int topCratePosition = crateStack[i].size()-1;
-//            topCrates+= crateStack[i].get(topCratePosition);
-//        }
+        // Get all crates on top of each stack
+        String topCrates = "";
+        for (int i=0; i<9; i++) {
+            int topCratePosition = crateStack[i].size()-1;
+            topCrates+= crateStack[i].get(topCratePosition);
+        }
 
         crateStack = copyOfcrateStack;
 
@@ -119,7 +120,7 @@ public class AoC2022 {
 //        System.out.println(crateStack[3].size());
 
         // Print solution:
-       // System.out.println("Solution Part 1: " + topCrates);
+        System.out.println("Solution Part 1: " + topCrates);
         System.out.println("Solution Part 2: " + topCratesP2);
     }
 
