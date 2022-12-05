@@ -128,7 +128,7 @@ public class AoC2022 {
 
         // Get assignment pairs
         int[][] assignmentPairs = new int[1000][4];
-        try(Scanner input = new Scanner(source).useDelimiter(",|-|\\r\\n")) {
+        try(Scanner input = new Scanner(source).useDelimiter(",|-|\\r|\\n")) {
             for (int i=0; input.hasNextLine(); i++) {
                 for (int j=0; j<4; j++) {
                     assignmentPairs[i][j] = Integer.parseInt(input.next());
