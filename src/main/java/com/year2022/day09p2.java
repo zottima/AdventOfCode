@@ -2,11 +2,13 @@ package com.year2022;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class day09 {
+public class day09p2 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day09.class.getResourceAsStream("/day09.txt");
+        final InputStream source = day09p2.class.getResourceAsStream("/day09e.txt");
+        int tailSize = 1;
 
         // Read input and store in List
         ArrayList<String> inputList = getInput(source);
@@ -18,8 +20,11 @@ public class day09 {
 
         // get starting position
         int[] startingPosition = getStartPosition(inputList);
-        int[] positionHead = startingPosition;
-        int[] positionTail = startingPosition;
+        int[][] rope = new int[tailSize+1][2];      // rope[0] = head
+        for (int i=0; i<=tailSize; i++) {
+            rope[i] = startingPosition;
+        }
+        int[] positionHead = rope[0];
 
         // Instantiate grid to mark visited fields
         boolean[][] isVisited = new boolean[gridX][gridY];
@@ -29,17 +34,29 @@ public class day09 {
         for (int i =0; i<inputList.size(); i++) {
             int steps = getSteps(inputList.get(i));
             String direction = getDirection(inputList.get(i));
+            System.out.println("Moving " + direction + " for " + steps + " steps:");
 
             for (int j = 0; j<steps; j++){
-                int[] oldPositionHead = positionHead;
-                positionHead = moveHead(positionHead,direction);
-                if (!checkIfTouching(positionHead,positionTail)) {
-                    positionTail = oldPositionHead;
-                    if (!isVisited[positionTail[0]][positionTail[1]]) {
-                        isVisited[positionTail[0]][positionTail[1]] = true;
+                int[] oldPositionHead = rope[0];
+                int[] oldPositionTailEnd = rope[tailSize];
+
+                // move head and tail
+                positionHead = moveStraight(positionHead,direction);
+                printPosition(positionHead,0);
+                rope[0] = positionHead;
+                rope = moveTail(rope,1,oldPositionHead, direction);
+
+                // check if end of tail was moved
+                if (!Arrays.equals(rope[tailSize],oldPositionTailEnd)) {    // check if tail end was moved
+ //                   System.out.println("tail end was moved");
+                    int tailEndX = rope[tailSize][0];
+                    int tailEndY = rope[tailSize][1];
+                    if (!isVisited[tailEndX][tailEndY]) {                   // mark field for tail end visit
+                        isVisited[tailEndX][tailEndY] = true;
                     }
                 }
-            }
+           }
+            printPosition(rope[tailSize],1);
         }
 
         // count visited fields
@@ -101,9 +118,6 @@ public class day09 {
         int startX = Math.abs(minX);
         int startY = Math.abs(minY);
         int[][] gridSpecs = {{gridX,gridY},{startX,startY}};
-        System.out.println("minX: " + minX + ", minY: " + minY);
-        System.out.println("maxX: " + maxX + ", maxY: " + maxY);
-        System.out.println("gridX: " + gridX + " gridY: " + gridY);
         return(gridSpecs);
     }
 
@@ -134,7 +148,21 @@ public class day09 {
         return direction;
     }
 
-    public static int[] moveHead(int[] currentPos, String direction) {
+    public static String getRelativeDirection(int[] posLead, int[] posFollow) {
+        String direction = "";
+        if (posLead[0] > posFollow[0]) {
+            direction = "R";
+        } else if (posLead[0] < posFollow[0]) {
+            direction = "L";
+        } else if (posLead[1] > posFollow[1]) {
+            direction = "U";
+        } else if (posLead[1] < posFollow[1]) {
+            direction = "D";
+        }
+        return direction;
+    }
+
+    public static int[] moveStraight(int[] currentPos, String direction) {
         int positionX = currentPos[0];
         int positionY = currentPos[1];
 
@@ -160,6 +188,77 @@ public class day09 {
         }
 
         return isTouching;
+    }
+
+    public static int[][] moveTail(int[][] rope, int ropeIndexFollow, int[] oldPosLead, String direction) {
+        int ropeLength = rope.length;
+        int[] positionFollow = rope[ropeIndexFollow];
+        int[] positionLead = rope[ropeIndexFollow-1];
+
+        if (!checkIfTouching(positionLead, positionFollow)) {    // check if distance is > 1
+            if ((isMoveStraight(positionLead, positionFollow))) {            // check how to move, and move next tail bit either to
+                String relDirection = getRelativeDirection(positionLead,positionFollow);
+                rope[ropeIndexFollow] = moveStraight(oldPosLead, relDirection);              // old pos lead if move straight
+                System.out.println("Moved tail bit " + (ropeIndexFollow+1) + " straight");
+            } else {
+                rope[ropeIndexFollow] = moveDiagonally(positionLead, positionFollow); // old pos lead + 1 in general direction if diagonal
+                System.out.println("Moved tail bit " + (ropeIndexFollow+1) + " diagonally");
+            }
+            if (ropeIndexFollow<ropeLength-2) {                 // if end of tail is not reached
+                rope = moveTail(rope, (ropeIndexFollow + 1), positionFollow, direction);   // call moveTail for next bit of rope
+            }
+        }
+        return rope;
+    }
+
+    public static Boolean isMoveStraight(int[] posLead, int[] posFollow) {
+        Boolean isStraight = false;
+        int posLeadX = posLead[0];
+        int posLeadY = posLead[1];
+        int posFollowX = posFollow[0];
+        int posFollowY = posFollow[1];
+
+        if (posLeadX == posFollowX || posLeadY == posFollowY) {
+            isStraight = true;
+        }
+
+        return isStraight;
+    }
+
+    public static int[] moveDiagonally(int[] posLead, int[] posFollow) {
+        int posLeadX = posLead[0];
+        int posLeadY = posLead[1];
+        int posFollowX = posFollow[0];
+        int posFollowY = posFollow[1];
+        int diffX = Math.abs(posLeadX-posFollowX);
+        int diffY = Math.abs(posLeadY-posFollowY);
+        int[] newPos = {0,0};
+
+        if (diffX == 1) {
+            newPos[0] = posLeadX;
+            newPos[1] = posFollowY;
+        } else if (diffY == 1) {
+            newPos[0] = posFollowX;
+            newPos[1] = posLeadY;
+        }
+
+        String direction = getRelativeDirection(posLead, newPos);
+        newPos = moveStraight(newPos, direction);
+
+        return newPos;
+    }
+
+    public static void printPosition(int[] pos, int index) {
+        String string = "";
+        if (index == 0) {
+            string = "Head is at position: ";
+        } else {
+            string = "Tail end is at position ";
+        }
+        int x = pos[0];
+        int y = pos[1];
+
+        System.out.println(string + "x: " + x + ", y: " + y);
     }
 
     public static int countVisitedFields(boolean[][] isVisited) {

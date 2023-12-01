@@ -88,7 +88,6 @@ public class day07 {
             }
         }
         return (inputList);
-
     }
     public static int getMaxLevel(ArrayList<String> inputList) {
         // count max level of directories; root being level 1

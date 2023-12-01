@@ -10,8 +10,9 @@ import java.util.regex.Pattern;
 public class day11 {
     public static void main(String[] args) throws Exception {
         // input
-        final InputStream source = day11.class.getResourceAsStream("/day11e.txt");
-        int numOfRounds = 20;
+        final InputStream source = day11.class.getResourceAsStream("/day11.txt");
+        int numOfRounds = 10000;
+        int part = 2;
 
         // get input
         ArrayList<String[]> monkeyNotes = getInput(source);
@@ -32,6 +33,10 @@ public class day11 {
         System.out.println(monkeyList.get(2).opIsAdd);
         System.out.println(monkeyList.get(3).opIsAdd);
 
+        //Find LCF
+        int lcf = findLcf(monkeyList);
+        System.out.println(lcf);
+
         // Flow per round:
 
         for (int k=0; k<numOfRounds; k++) {
@@ -43,8 +48,15 @@ public class day11 {
                     long item = monkey.itemList.get(0);      // get item [0] in list
                     item = doOperation(monkey, item);               // do operation (worry level item)
      //               System.out.println("worry level start: "+ item);
-                    item = (item / 3);                // divide by 3, round down (worry level item)
-      //              System.out.println("divided by 3: " + item);
+                    if (part == 1) {
+                        item = (item / 3);                // divide by 3, round down (worry level item)
+                        //              System.out.println("divided by 3: " + item);
+                    } else {
+                        if (item>lcf) {
+                            item = item % lcf;
+                            System.out.println("part 2 stuff: " + item);
+                        }
+                    }
                     int throwTo = findNextMonkey(monkey, item);     // test worry level, using divisor
                     monkeyList.get(throwTo).addItem(item);       // throw item to other monkey:  // add to other monkey's list
                     monkeyList.get(i).removeItem(0);     // remove from current monkey's list
@@ -55,9 +67,12 @@ public class day11 {
         }
 
         // get monkey business Part 1
-        int monkeyBusiness = getMonkeyBusiness(monkeyList);
+        long monkeyBusiness = getMonkeyBusiness(monkeyList);
 
         System.out.println(monkeyBusiness);
+
+
+
 
 
 
@@ -119,7 +134,7 @@ public class day11 {
         return index;
     }
 
-    public static int getMonkeyBusiness(ArrayList<Monkey> monkeyList) {
+    public static long getMonkeyBusiness(ArrayList<Monkey> monkeyList) {
         // Get count inspected items from all monkeys
         int[] inspectedItemsList = new int[monkeyList.size()];
         for (int i=0; i<monkeyList.size(); i++) {
@@ -128,11 +143,11 @@ public class day11 {
 
         // Get two highest counts
         Arrays.sort(inspectedItemsList);
-        int monkeyBusiness = inspectedItemsList[inspectedItemsList.length-1] * inspectedItemsList[inspectedItemsList.length-2];
+        long monkeyBusiness = inspectedItemsList[inspectedItemsList.length-1] * inspectedItemsList[inspectedItemsList.length-2];
 
         System.out.println("Monkey Business: " + monkeyBusiness);
-        System.out.println(inspectedItemsList[inspectedItemsList.length-1]);
-        System.out.println(inspectedItemsList[inspectedItemsList.length-2]);
+        System.out.println("This one: " + inspectedItemsList[inspectedItemsList.length-1]);
+        System.out.println("times this one: "+ inspectedItemsList[inspectedItemsList.length-2]);
         System.out.println(inspectedItemsList[inspectedItemsList.length-3]);
         System.out.println(inspectedItemsList[inspectedItemsList.length-4]);
 
@@ -140,14 +155,18 @@ public class day11 {
     }
 
     public static int findLcf(ArrayList<Monkey> monkeyList) {
-        int lcf = 0;
-        int[] divisors = new int[monkeyList.size()];
+        int lcf = 1;
 
         for (int i=0; i<monkeyList.size(); i++) {
-            divisors[i] = monkeyList.get(i).divisor;
+            lcf*= monkeyList.get(i).divisor;
         }
-
         return lcf;
+    }
+
+    public static long keepWorryLevelDown(long item, int lcf) {
+        long worryLevel = item;
+
+        return worryLevel;
     }
 
 }
