@@ -24,7 +24,6 @@ public class day02 {
      */
 
     public static void main(String[] args) throws Exception {
-
         System.out.println("Advent of Code – Day 2, Part 1");
         String inputFile = "/2023/day02.txt";
         int n = 100;
@@ -53,10 +52,19 @@ public class day02 {
         int red = 12;
         int green = 13;
         int blue = 14;
+
+        // Part 1
+        runPart1(gameInput, red, green, blue, n);
+
+        // Part 2
+        runPart2(gameInput, red, green, blue, n);
+
+    }
+
+    public static void runPart1(String[] gameInput, int red, int green, int blue, int n) {
         boolean[] isGamePossible = new boolean[n];
         Arrays.fill(isGamePossible, true);
 
-        // check if possible game
         for (int i=0; i<n; i++) {   // game
             Scanner game = new Scanner(gameInput[i]);
             game.next();    // no need for "Game x:" bit
@@ -65,8 +73,8 @@ public class day02 {
                 int num = Integer.parseInt(game.next());
                 String cubeColour = game.next();
                 if (cubeColour.contains("red")) {
-                     if (num > red)
-                         isGamePossible[i] = false;
+                    if (num > red)
+                        isGamePossible[i] = false;
                 }  else if (cubeColour.contains("green")) {
                     if (num > green)
                         isGamePossible[i] = false;
@@ -87,7 +95,7 @@ public class day02 {
         }
 
         // Print result
-        System.out.println("The result is: " + sum);
+        System.out.println("The result for part 1 is: " + sum);
 
         // Test output
         /*
@@ -97,5 +105,16 @@ public class day02 {
         System.out.println(isGamePossible[3]);
         System.out.println(isGamePossible[4]);
         */
+    }
+
+    public static void runPart2(String[] gameInput, int red, int green, int blue, int n) {
+        int[][] minSetOfCubes = new int[n][3];
+
+        for (int i=0; i<n; i++) {   // game
+            Scanner game = new Scanner(gameInput[i]);
+            game.next();    // no need for "Game x:" bit
+            game.next();
+        }
+
     }
 }
