@@ -111,10 +111,39 @@ public class day02 {
         int[][] minSetOfCubes = new int[n][3];
 
         for (int i=0; i<n; i++) {   // game
+            int minRed = 0;
+            int minGreen = 0;
+            int minBlue = 0;
+
             Scanner game = new Scanner(gameInput[i]);
             game.next();    // no need for "Game x:" bit
             game.next();
+            while (game.hasNext()) {
+                int num = Integer.parseInt(game.next());
+                String cubeColour = game.next();
+                if (cubeColour.contains("red")) {
+                    if (num > minRed)
+                        minRed = num;
+                } else if (cubeColour.contains("green")) {
+                    if (num > minGreen)
+                        minGreen = num;
+                } else if (cubeColour.contains("blue")) {
+                    if (num > minBlue)
+                        minBlue = num;
+                }
+            }
+
+            minSetOfCubes[i][0] = minRed;
+            minSetOfCubes[i][1] = minGreen;
+            minSetOfCubes[i][2] = minBlue;
         }
 
+        // compute power for each game and sum up
+        int sum = 0;
+        for (int i=0; i<n; i++) {
+            sum += minSetOfCubes[i][0] * minSetOfCubes[i][1] * minSetOfCubes[i][2];
+        }
+
+        System.out.println("The result for part 2 is: " + sum);
     }
 }
