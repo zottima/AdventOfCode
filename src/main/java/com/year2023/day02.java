@@ -86,12 +86,16 @@ public class day02 {
             }
         }
 
+        // Print result
+        System.out.println("The result is: " + sum);
+
         // Test output
+        /*
         System.out.println(isGamePossible[0]);
         System.out.println(isGamePossible[1]);
         System.out.println(isGamePossible[2]);
         System.out.println(isGamePossible[3]);
         System.out.println(isGamePossible[4]);
-        System.out.println(sum);
+        */
     }
 }
