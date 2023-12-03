@@ -3,6 +3,8 @@ package com.year2023;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import static java.lang.Character.isDigit;
+
 public class day01 {
     /*
         solution approach:
@@ -44,7 +46,32 @@ public class day01 {
             }
         }
 
+        // get first and last digits of each line
+        int[][] calibrationDigits = new int[n][2];
+        for (int i=0; i<n; i++) {
+            boolean foundDigit = false;
+            for (int j = 0; j < calibrationDoc[i].length()-1 && !foundDigit; j++) {    // first digit
+                char c = calibrationDoc[i].charAt(j);
+                if (isDigit(c)) {
+                    calibrationDigits[i][0] = Character.getNumericValue(c);
+                    foundDigit = true;
+                }
+            }
+        }
+        for (int i=0; i<n; i++) {
+            boolean foundDigit = false;
+            for (int j = calibrationDoc[i].length()-1; j >= 0 && !foundDigit; j--) {         // last digit
+                char c = calibrationDoc[i].charAt(j);
+                if (isDigit(c)) {
+                    calibrationDigits[i][1] = Character.getNumericValue(c);
+                    foundDigit = true;
+                }
+            }
+        }
+
         // Test output
         System.out.println(calibrationDoc[calibrationDoc.length-1]);
+        System.out.println(calibrationDigits[2][0]);
+        System.out.println(calibrationDigits[2][1]);
     }
 }
