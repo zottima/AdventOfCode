@@ -42,7 +42,7 @@ public class day01 {
         String[] calibrationDoc = new String[n];
         try(Scanner input = new Scanner(source)) {
             for (int i=0; input.hasNextLine(); i++) {
-                calibrationDoc[i] = input.next();
+                calibrationDoc[i] = input.nextLine();
             }
         }
 
