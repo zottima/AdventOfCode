@@ -50,7 +50,7 @@ public class day01 {
         int[][] calibrationDigits = new int[n][2];
         for (int i=0; i<n; i++) {
             boolean foundDigit = false;
-            for (int j = 0; j < calibrationDoc[i].length()-1 && !foundDigit; j++) {    // first digit
+            for (int j = 0; j < calibrationDoc[i].length() && !foundDigit; j++) {    // first digit
                 char c = calibrationDoc[i].charAt(j);
                 if (isDigit(c)) {
                     calibrationDigits[i][0] = Character.getNumericValue(c);
@@ -69,9 +69,23 @@ public class day01 {
             }
         }
 
+        // compute calibration value for each line and sum up
+        int valueSum = 0;
+        for (int i=0; i<n; i++) {
+            int value = calibrationDigits[i][0] * 10 + calibrationDigits[i][1];
+            valueSum += value;
+        }
+
+        // print result
+        System.out.println("The result is: " + valueSum);
+
+
         // Test output
+        /*
+        System.out.println("****************");
         System.out.println(calibrationDoc[calibrationDoc.length-1]);
-        System.out.println(calibrationDigits[2][0]);
-        System.out.println(calibrationDigits[2][1]);
+        System.out.println(calibrationDigits[3][0]);
+        System.out.println(calibrationDigits[3][1]);
+        */
     }
 }
