@@ -1,6 +1,7 @@
 package com.year2023;
 
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -13,6 +14,14 @@ import java.util.Scanner;
         - if yes, increase counter
         - calculate points: 1*2^(counter-1)
     - sum up all points
+
+    Part 2:
+    - uses same input
+    - needs cardCounter - number of copies (including original) of card
+    - per line
+        - check for number of matches
+        - increase number of following cards accordingly (+1 for each count of current card)
+    - sum up number of cards
  */
 public class day04 {
     public static void main(String[] args) throws Exception {
@@ -73,7 +82,7 @@ public class day04 {
             matches[i] = checkNumOfMatches(winningNumbers[i], myNumbers[i]);
         }
 
-        // compute points
+        // compute points (solution part 1)
         int points = 0;
         for (int i=0; i<n; i++) {
             if (matches[i] > 0) {
@@ -83,6 +92,27 @@ public class day04 {
 
         // print result
         System.out.println("The result for part 1 is: " + points);
+
+        // compute new cards won
+        int[] cardCount = new int[n];
+        Arrays.fill(cardCount, 1);
+
+        for (int i=0; i<n; i++) {       // loop through cards
+            if (matches[i] > 0) {       // only add to pile if matches on current card
+                for (int j=i+1; j<(i+matches[i]+1) && (j<n); j++) {      // add (cardCount) cards to the count of the next (matches) cards
+                    cardCount[j] += cardCount[i];
+                }
+            }
+        }
+
+        // sum up number of cards
+        int cardTotal = 0;
+        for (int i=0; i<n; i++) {
+            cardTotal += cardCount[i];
+        }
+
+        // print result
+        System.out.println("The result for part 2 is: " + cardTotal);
     }
 
     public static int checkNumOfMatches(int[] winNums, int[] myNums) {
