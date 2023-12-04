@@ -24,7 +24,7 @@ public class day02 {
      */
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Advent of Code – Day 2, Part 1");
+        System.out.println("Advent of Code – Day 2");
         String inputFile = "/2023/day02.txt";
         int n = 100;
 
@@ -57,7 +57,7 @@ public class day02 {
         runPart1(gameInput, red, green, blue, n);
 
         // Part 2
-        runPart2(gameInput, red, green, blue, n);
+        runPart2(gameInput, n);
 
     }
 
@@ -107,7 +107,7 @@ public class day02 {
         */
     }
 
-    public static void runPart2(String[] gameInput, int red, int green, int blue, int n) {
+    public static void runPart2(String[] gameInput, int n) {
         int[][] minSetOfCubes = new int[n][3];
 
         for (int i=0; i<n; i++) {   // game
