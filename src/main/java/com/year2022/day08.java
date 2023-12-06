@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class day08 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day08.class.getResourceAsStream("/day08.txt");
+        final InputStream source = day08.class.getResourceAsStream("/2022/day08.txt");
 
         // Read input
         int gridSize = 99;

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class day07 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day07.class.getResourceAsStream("/day07.txt");
+        final InputStream source = day07.class.getResourceAsStream("/2022/day07.txt");
 
         // Read input and store in List
         ArrayList<String> inputList = getInput(source);

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class day05 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day05.class.getResourceAsStream("/day05.txt");
+        final InputStream source = day05.class.getResourceAsStream("/2022/day05.txt");
 
         // Get input
         char[][] crateInput = new char[8][35];

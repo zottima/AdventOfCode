@@ -1,16 +1,14 @@
 package com.year2022;
 
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class day11 {
     public static void main(String[] args) throws Exception {
         // input
-        final InputStream source = day11.class.getResourceAsStream("/day11.txt");
+        final InputStream source = day11.class.getResourceAsStream("/2022/day11.txt");
         int numOfRounds = 10000;
         int part = 2;
 

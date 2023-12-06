@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class day01 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day01.class.getResourceAsStream("/day01.txt");
+        final InputStream source = day01.class.getResourceAsStream("/2022/day01.txt");
         int[] calories = new int[2000];
         int elves = 0;
 
