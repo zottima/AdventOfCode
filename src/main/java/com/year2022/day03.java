@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class day03 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day03.class.getResourceAsStream("/day03.txt");
+        final InputStream source = day03.class.getResourceAsStream("/2022/day03.txt");
         String[] rucksackContent = new String[300];
         int[] misplacedItems = new int[300];
         int[] itemPriority = new int[300];

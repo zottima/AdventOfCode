@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class day06 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day06.class.getResourceAsStream("/day06.txt");
+        final InputStream source = day06.class.getResourceAsStream("/2022/day06.txt");
 
         // Read input
         String inputString = new String();

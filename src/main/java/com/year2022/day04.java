@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class day04 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day04.class.getResourceAsStream("/day04.txt");
+        final InputStream source = day04.class.getResourceAsStream("/2022/day04.txt");
 
         // Get assignment pairs
         int[][] assignmentPairs = new int[1000][4];

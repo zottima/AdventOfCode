@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class day02 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day02.class.getResourceAsStream("/day02.txt");
+        final InputStream source = day02.class.getResourceAsStream("/2022/day02.txt");
         String[] strategyGuide = new String[2500];
         int[] score = new int[2500];
         int totalScore = 0;

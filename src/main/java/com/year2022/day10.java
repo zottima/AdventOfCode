@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class day10 {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day10.class.getResourceAsStream("/day10.txt");
+        final InputStream source = day10.class.getResourceAsStream("/2022/day10.txt");
 
         // get input
         ArrayList<Integer> signalList = getInput(source);        // 0 for "noop"

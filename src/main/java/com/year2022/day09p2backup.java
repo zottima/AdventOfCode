@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class day09p2backup {
     public static void main(String[] args) throws Exception {
-        final InputStream source = day09p2.class.getResourceAsStream("/day09e.txt");
+        final InputStream source = day09p2.class.getResourceAsStream("/2022/day09e.txt");
         int tailSize = 1;
 
         // Read input and store in List
