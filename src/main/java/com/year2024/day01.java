@@ -3,6 +3,7 @@ package com.year2024;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 import static java.lang.Character.isDigit;
 
@@ -17,7 +18,7 @@ public class day01 {
      */
     public static void main(String[] args) throws Exception {
 
-        System.out.println("Advent of Code 2024 – Day 1, Part 1");
+        System.out.println("Advent of Code 2024 – Day 1");
         String inputFile = "/2024/day01.txt";
         int n = 1000;
 
@@ -55,9 +56,29 @@ public class day01 {
         }
 
         // print result
-        System.out.println("The result is: " + valueSum);
+        System.out.println("The solution for part 1 is: " + valueSum);
         // solution part 1: 2057374 (example: 11)
 
+        // Part 2
+        // find similarity score per location
+        int[] similarityScore = new int[n];
+        for (int i=0; i<n; i++) {
+            int count = 0;
+            for (int j=0; j<n; j++) {
+                if (locationA[i] < locationB[j]) break;
+                else if (locationA[i] == locationB[j]) {
+                    count++;
+                }
+            }
+            similarityScore[i] = locationA[i] * count;
+        }
+
+        // sum up similarity score
+        int similSum = IntStream.of(similarityScore).sum();
+
+        // print result
+        System.out.println("The solution for part 2 is: " + similSum);
+        // solution part 2: 23177084 (example: 31)
 
         // Test output
         /*
