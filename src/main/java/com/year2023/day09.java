@@ -1,6 +1,7 @@
 package com.year2023;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class day09 {
@@ -26,6 +27,14 @@ public class day09 {
         try (Scanner input = new Scanner(source)) {
             for (int i = 0; input.hasNextLine(); i++) {
                 oasisInput[i] = input.nextLine();
+            }
+        }
+
+        // read input
+        ArrayList<Integer> oasis = new ArrayList<>();
+        try(Scanner in = new Scanner(source)) {
+            while (in.hasNext()) {
+                oasis.add(Integer.parseInt(in.next()));
             }
         }
     }
